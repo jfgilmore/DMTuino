@@ -11,12 +11,8 @@ const int PLUS_BTN = 8;
 const int MINUS_BTN = 9;
 const int START_BTN = 10;
 
-const int LED_METER_1 = 2;
-const int LED_METER_2 = 3;
-const int LED_METER_3 = 4;
-const int LED_METER_4 = 5;
-const int LED_METER_5 = 6;
-const int LED_METER_6 = 7;
+const int LED_METER_MIN = 2;
+const int LED_METER_MAX = 7;
 
 class Display {  
    public:
@@ -119,6 +115,49 @@ class Light {
     }
 };
 
+class LedMeter {
+  private:
+    high(int light) {
+      digitalWrite(light, HIGH);
+    }
+    low(int light) {
+      digitalWrite(light, LOW);
+    }
+    lvl(int light, int brightness) {
+      analogWrite(light, brightness);
+    }
+  public:
+    unsigned int pMin;
+    unsigned int pMax;
+    LedMeter(int min, int max): pMin(min), pMax(max) {}
+    init() {
+      for (int light = pMin; light <= pMax; light++) {
+        pinMode(light, OUTPUT);
+      }
+    }
+    reading(int level) {
+      for (int light = pMin; light <= level; light++) {
+        high(light);
+      }
+      for (int light = pMax; light > level; light--) {
+        low(light);
+      }
+    }
+    reading(int level, int brightness) {
+      for (int light = pMin; light <= level; light++) {
+        lvl(light, brightness);
+      }
+      for (int light = pMax; light > level; light--) {
+        low(light);
+      }
+    }
+    ~LedMeter() {
+      for (int light = pMin; light <= pMax; light++) {
+        low(light);
+      }
+    }
+};
+
 class EffectLight: public Light {
   private:
     unsigned long intervalLength; // base time unit in minutes.
@@ -127,12 +166,7 @@ class EffectLight: public Light {
     Button plus = Button(PLUS_BTN);
     Button minus = Button(MINUS_BTN);
     Button startStop = Button(START_BTN);
-    Light minLight = Light(LED_METER_1);
-    Light oneLight = Light(LED_METER_2);
-    Light twoLight = Light(LED_METER_3);
-    Light threeLight = Light(LED_METER_4);
-    Light fourLight = Light(LED_METER_5);
-    Light maxLight = Light(LED_METER_6);
+    LedMeter meter = LedMeter(LED_METER_MIN, LED_METER_MAX);
     unsigned int brightness = 255;
     /******* WAVEFORM CONSTANTS *******
     Only change for experimental purposes
@@ -158,15 +192,10 @@ class EffectLight: public Light {
     }
     void init() {
       Light::init();
-      minLight.init();
-      oneLight.init();
-      twoLight.init();
-      threeLight.init();
-      fourLight.init();
-      maxLight.init();
       plus.init();
       minus.init();
       startStop.init();
+      meter.init();
       disp.init();
     }
     void configure() {
@@ -187,10 +216,10 @@ class EffectLight: public Light {
          } else 
         if (plus.state == plus.shortPress && tDuration < 6) {
            tDuration ++;
-           digitalWrite(tDuration, HIGH);
+           meter.reading(tDuration);
         } else if (minus.state == minus.shortPress && tDuration > 1) {
-           digitalWrite(tDuration, LOW);
            tDuration --;
+           meter.reading(tDuration);
         }
         delay(50);
         startStop.check();
