@@ -28,7 +28,7 @@ rest, have been reported during psychedelic states."<sup>[source](https://www.bi
 
 \- _Begin Translation_ "After a short test session, I was so impressed by the shapes and colors that
 I really wanted to continue. In the second session with Lucia, in which I saw a five-eyed being, the idea for mine came to me directly...
-After a half hour light session, I was able to sit down straight away
+After a half-hour light session, I was able to sit down straight away
 and record my ideas without thinking about them - that wasn't possible in the past."
 Susanne Arndt, 22 - _End Translation_<sup>[source](https://www.light-attendance.eu/assets/Bericht%20LichtreiseHochschule%20MU%20Buchner%2020150902%20de.pdf)</sup>
 
@@ -83,10 +83,8 @@ Changes in both the power spectrum and the phase spectrum contributed to the inc
 
 Examining changes in the power spectrum during stroboscopic stimulation, we found a significant reduction in alpha power during 3 Hz stimulation, (relative to Dark, Fig 5), in which participants also reported the majority of CVH occurred.
 
-10 Hz was characterized by high intensity, simple SIVHs.
-The 3 Hz condition was characterized by a relatively low intensity, simple SIVHs, fewer similarities to a
-psilocybin induced ASC, but interestingly, in addition, was associated with the
-occurrence of complex visual hallucinations (CVH).
+10 Hz was characterized by high-intensity, simple SIVHs.
+The 3 Hz condition was characterized by relatively low intensity, simple SIVHs, and fewer similarities to psilocybin-induced ASC, but interestingly, in addition, was associated with the occurrence of complex visual hallucinations (CVH).
 
 ## SOFTWARE CONFIGURATION
 
@@ -99,7 +97,7 @@ const int sequence[frequency delay][duration in seconds]
 ```
 
 a = alpha waves, b = beta waves,d = delta waves, t = theta waves, g = gamma waves
-you can also input an integer that is desired delay time (on / off).
+You can also input an integer as the desired delay time (on / off).
 
 ## HARDWARE
 
@@ -107,4 +105,4 @@ you can also input an integer that is desired delay time (on / off).
 - 6 Coloured LEDs
 - 3 Button switches
 - 1 10kΩ resistor
-- 6 220Ω resistor (can be up to 1kΩ)
+- 6 220Ω resistors (can be up to 1kΩ)
